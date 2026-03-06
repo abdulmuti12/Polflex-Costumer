@@ -11,7 +11,7 @@ import { FooterSection } from "@/components/footer-section"
 export const revalidate = 3600
 
 export const metadata = {
-  title: "Homelogy - Luxury Furniture & Interior Design",
+  title: "Polflex - Luxury Furniture & Interior Design",
   description: "Premium furniture and interior design solutions for modern living spaces",
 }
 
