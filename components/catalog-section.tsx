@@ -62,7 +62,6 @@ export function CatalogSection() {
             </div>
 
             {/* Heading */}
-            <h3
              <h3
   className={`font-light text-[26px] md:text-[34px] lg:text-[40px] leading-[1.18] tracking-[0.01em] text-[#e6e1d6] mb-10 transition-all duration-1000 ease-out delay-100 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
