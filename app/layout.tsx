@@ -13,7 +13,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Homeology - Luxury Furniture Collection",
+  title: "Polflex - Luxury Furniture Collection",
   description:
     "Discover premium furniture with living philosophy. Explore our exclusive collections of modern and elegant home furnishings.",
   generator: "v0.app",
