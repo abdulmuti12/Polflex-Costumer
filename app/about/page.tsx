@@ -13,7 +13,7 @@ import { OurClients } from "@/components/our-clients"
 export const revalidate = 86400
 
 export const metadata = {
-  title: "About Homelogy - Our Story & Values",
+  title: "About Polflex - Our Story & Values",
   description: "Learn about Homelogy's mission, vision, and commitment to quality furniture design",
 }
 
