@@ -217,7 +217,7 @@ export default function ProductsPage() {
 
                 <div className="lg:w-2/3 flex flex-col justify-start">
                   <p className="text-gray-300 text-sm leading-relaxed">
-The Polflex Office collection presents a range of executive and management seating designed for contemporary workplaces.                  </p>
+The Polflex Office collection presents a range of executive and management seating designed for contemporary workplaces.Each chair reflects a design language defined by refined proportions, quality materials, and meticulous craftsmanship. The collection includes seating solutions for executive offices, meeting spaces, and professional environments,Polflex Office products bring presence, comfort, and sophistication to modern workspaces.                  </p>
                 </div>
               </div>
 
