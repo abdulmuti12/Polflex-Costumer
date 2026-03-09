@@ -15,7 +15,7 @@ import {
 export const revalidate = 604800
 
 export const metadata = {
-  title: "Homelogy Catalogue - Download Our Collection",
+  title: "Polflex Catalogue - Download Our Collection",
   description: "Browse and download our furniture catalogues",
 }
 
@@ -26,6 +26,7 @@ const catalogItems = [
     image: "/images/catalogue/catalog-book-polflex-1.jpg",
     width: "w-full md:w-[280px] lg:w-[320px]",
     aspect: "aspect-[3/4]",
+    link: "https://drive.google.com/file/d/1WfWMHdqK7JA1IlOSKz0q9KYQuKtzEFGr/view",
   },
   {
     id: 2,
@@ -33,6 +34,7 @@ const catalogItems = [
     image: "/images/catalogue/catalog-book-polflex-2-01.jpg",
     width: "w-full md:w-[380px] lg:w-[440px]",
     aspect: "aspect-[1.4/1]",
+    link: "#",
   }
 ]
 
@@ -74,7 +76,13 @@ export default function CataloguePage() {
 
           <div className="flex flex-col md:flex-row items-start md:items-end gap-12 md:gap-16 lg:gap-24">
             {catalogItems.map((item) => (
-              <div key={item.id} className={`flex flex-col group ${item.width}`}>
+              <Link
+                key={item.id}
+                href={item.link}
+                target={item.link !== "#" ? "_blank" : undefined}
+                rel={item.link !== "#" ? "noopener noreferrer" : undefined}
+                className={`flex flex-col group ${item.width}`}
+              >
                 
                 {/* Image Container */}
                 <div className="w-full mb-6 cursor-pointer relative">
@@ -101,7 +109,7 @@ export default function CataloguePage() {
                   <div className="mt-2 w-full h-[1px] bg-[#ef5023] origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100" />
                 </div>
 
-              </div>
+              </Link>
             ))}
           </div>
 

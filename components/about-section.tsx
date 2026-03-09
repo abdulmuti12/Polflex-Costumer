@@ -94,7 +94,7 @@ export function AboutSection() {
             viewport={{ once: true, amount: 0.3 }}
           >
             <p className="text-gray-500 text-xs sm:text-sm leading-relaxed text-justify">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.
+              Polflex Office presents a collection of contemporary office seating designed for refined professional environments. The brand focuses on design clarity, material quality, and well-balanced proportions that complement executive workspaces.
             </p>
           </motion.div>
 

@@ -118,12 +118,34 @@
 }
 
 @layer base {
-  /* Removed overflow: hidden to allow scrolling on all pages */
+  /* Hide scrollbar completely */
   * {
     @apply border-border outline-ring/50;
   }
+  
+  html {
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  html::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  
   body {
     @apply bg-background text-foreground;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
   
   /* Smooth magnetic scroll effect */
@@ -135,10 +157,5 @@
   .snap-start {
     scroll-snap-align: start;
     scroll-snap-stop: always;
-  }
-  
-  /* Enhanced scroll smoothing */
-  html {
-    scroll-behavior: smooth;
   }
 }

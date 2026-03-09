@@ -7,21 +7,23 @@ import { OurProjectSection } from "@/components/our-project-section"
 import { CatalogSection } from "@/components/catalog-section"
 import { FooterSection } from "@/components/footer-section"
 
-// Static generation - revalidate every 3600 seconds (1 hour)
 export const revalidate = 3600
 
 export const metadata = {
-  title: "Polflex - Luxury Furniture & Interior Design",
+  title: "Homelogy - Luxury Furniture & Interior Design",
   description: "Premium furniture and interior design solutions for modern living spaces",
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
+    <main className="h-screen w-full relative overflow-hidden">
       <SiteHeader />
       
-      {/* Container utama untuk efek Magnetic/Snap */}
-      <div className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth" style={{ scrollPaddingTop: '0', scrollBehavior: 'smooth' }}>
+      {/* Container utama dengan snap scroll dan pembersihan scrollbar */}
+      <div 
+        className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth no-scrollbar"
+        style={{ scrollPaddingTop: '0' }}
+      >
         
         <div className="snap-start min-h-screen">
           <HeroSlider />
@@ -43,8 +45,7 @@ export default function Home() {
           <CatalogSection />
         </div>
 
-        {/* Footer - use h-auto to fit content naturally */}
-        <div className="snap-start">
+        <div className="snap-start h-auto">
           <FooterSection />
         </div>
 

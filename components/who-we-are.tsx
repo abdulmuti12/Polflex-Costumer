@@ -37,16 +37,19 @@ export function WhoWeAre() {
 
             <div className="space-y-6 text-[#d4d4d4] text-[15px] md:text-[16px] leading-[1.8] flex-grow">
               <p className="text-justify font-light">
-                Since 1938, craftsmanship and innovation in Made in Italy design. At Polflex, performance is not an add-on, it is the foundation of every design decision we make. Our approach centers on creating office furniture that supports focus, comfort, and long working hours, where ergonomics and functionality work seamlessly with a professional aesthetic. Every collection reflects our commitment to thoughtful engineering, material integrity, and solutions built for modern work environments.
+Polflex Office is led by Claudia Apriliana, Creative Director, and Ayleen Apriliana, Managing Director.              </p>
+
+              <p className="text-justify font-light">
+As Creative Director, Claudia Apriliana defines the visual identity and design direction of the brand. Her approach emphasizes refined forms, balanced proportions, and a sophisticated aesthetic suited for contemporary office environments.
               </p>
 
               <p className="text-justify font-light">
-                We believe that a productive workspace is shaped not only by the furniture within it but also by the people who design, build, and support it. Our team forms the backbone of Polflex, driven by precision, collaboration, and a shared dedication to delivering reliable workspace solutions. In an environment that values expertise and accountability, every role contributes to the standards we uphold.
+Ayleen Apriliana, Managing Director, leads the strategic and operational development of Polflex Office. She oversees partnerships, project collaborations, and brand growth, ensuring a consistent standard of quality and service.
               </p>
+                            <p className="text-justify font-light">
+                              Together, they guide Polflex Office with a shared commitment to refined office furniture and elevated workspace design.
 
-              <p className="text-justify font-light">
-                At Polflex, we design for those who lead, decide, and build progress every day. Our products are created to support work that matters, with comfort and consistency that last beyond the working hours.
-              </p>
+</p>
             </div>
           </motion.div>
 
