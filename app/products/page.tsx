@@ -217,10 +217,7 @@ export default function ProductsPage() {
 
                 <div className="lg:w-2/3 flex flex-col justify-start">
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                    laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                    ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                  </p>
+The Polflex Office collection presents a range of executive and management seating designed for contemporary workplaces.                  </p>
                 </div>
               </div>
 
