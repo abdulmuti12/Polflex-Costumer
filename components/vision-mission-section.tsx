@@ -44,14 +44,13 @@ export function VisionMissionSection() {
             >
               Our Vision
             </h2>
-            <p
-              className={`text-gray-400 text-lg leading-relaxed font-normal font-['Aeonik'] transition-all duration-1000 ease-out delay-200 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
+          <p
+  className={`text-gray-400 text-lg leading-relaxed font-normal font-['Aeonik'] text-justify transition-all duration-1000 ease-out delay-200 ${
+    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+  }`}
+>
              
-To be the leading destination for high-end Italian furniture, defined by uncompromising quality, refined service, and an effortless client experience.
-            </p>
+To establish Polflex Office Indonesia as the leading provider of Italian luxury office furniture, bringing timeless design, refined craftsmanship, and premium materials to create prestigious workspaces for leaders and modern professionals. Inspired by Polflex’s heritage of Italian craftsmanship since 1938, Polflex Indonesia aims to transform executive environments into spaces that reflect leadership, elegance, and performance.            </p>
           </div>
 
           {/* Our Mission */}
@@ -65,21 +64,14 @@ To be the leading destination for high-end Italian furniture, defined by uncompr
 </h2>
            
             <div className="space-y-6">
-              <p
-                className={`text-gray-400 text-lg leading-relaxed font-normal font-['Aeonik'] transition-all duration-1000 ease-out delay-500 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-              >
-               Curating and expanding timeless collections to meet the aspirations of our discerning clients.
-Upholding the highest standards of health, safety, and well-being for our team.
+             <p
+  className={`text-gray-400 text-lg leading-relaxed font-normal font-['Aeonik'] text-justify transition-all duration-1000 ease-out delay-500 ${
+    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+  }`}
+>
+                Polflex Office Indonesia aims to support modern workplaces with furniture that enhances comfort, productivity, and professional presence. Through collaboration with architects, interior designers, and corporate clients, Polflex Indonesia delivers tailored solutions for evolving workspace needs. Each collection balances design and functionality, creating refined and enduring environments while contributing to the presence of Italian design in Indonesia.
               </p>
-              <p
-                className={`text-gray-400 text-lg leading-relaxed font-normal font-['Aeonik'] transition-all duration-1000 ease-out delay-700 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-              >
-                Upholding the highest standards of health, safety, and well-being for our team.
-              </p>
+              
             </div>
           </div>
         </div>
