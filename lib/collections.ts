@@ -8,7 +8,7 @@ export const collections = [
     image: "/Asset-29.jpg",
   },
   {
-    title: "Sales Stock",
+    title: "Executive Desk",
     image: "/Asset-30.jpg",
   },
   {

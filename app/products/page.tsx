@@ -15,8 +15,6 @@ import {
 } from "@/components/ui/breadcrumb"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronDown } from "lucide-react"
-import { collections } from "@/lib/products"
-import { ArrowRight } from "lucide-react"
 
 // Dynamic rendering required for real-time filtering and API calls
 export const dynamic = "force-dynamic"
@@ -123,7 +121,7 @@ export default function ProductsPage() {
         setLoading(true)
         
         // Build query params
-        let url = `http://31.97.67.48:8000/api/customers/product?page=${currentPage}`
+        let url = `https://casaitalia-living.com/api/customers/product?page=${currentPage}`
         
         // Add search parameter if entered
         if (searchTerm) {
@@ -173,23 +171,46 @@ export default function ProductsPage() {
   const paginatedProducts = products
 
   return (
-    <main className="min-h-screen bg-[#1a1a1a] text-white relative">
+    // Diubah: Memastikan main container relative agar abs pos berfungsi, 
+    // dan menghapus pembatasan h-screen agar halaman body bisa di-scroll.
+    <main className="min-h-screen bg-[#1a1a1a] text-white relative overflow-x-hidden">
       <SiteHeader />
 
-      {/* Dekorasi Garis Lingkaran Besar di Background */}
-      <div 
-        className="absolute top-[-15%] left-[-20%] md:top-[-20%] md:left-[-10%] w-[500px] h-[500px] md:w-[800px] md:h-[800px] rounded-full pointer-events-none z-0"
-        style={{
-          borderWidth: "3px",
-          borderColor: "rgba(107, 114, 128, 0.5)"
-        }}
-      />
+      {/* --- DEKORASI GARIS LINGKARAN KIRI ATAS --- */}
+      {/* Perubahan:
+        1. h-[800px] (lebih tinggi agar kurva lebih terlihat bulat).
+        2. SVG viewBox square (0 0 1000 1000) agar mudah menghitung lingkaran.
+        3. cx/cy/r disesuaikan agar kurva lebih tajam/bulat membingkai header.
+        4. Karena berada di 'main' yang relative, div ini akan ikut gerak (scroll) 
+           ke atas saat halaman di-scroll ke bawah.
+      */}
+      <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none z-0 overflow-hidden">
+        <svg
+          className="absolute top-0 left-0 w-full h-full"
+          viewBox="0 0 1000 1000"
+          preserveAspectRatio="xMinYMin meet"
+        >
+          <circle
+            cx="-100" // Geser pusat sedikit ke kiri luar
+            cy="0"    // Pusat di paling atas
+            r="800"   // Radius besar untuk kurva bulat di pojok kiri atas
+            stroke="rgba(107, 114, 128, 0.3)" // Abu-abu tipis transparan
+            strokeWidth="1.5"
+            fill="none"
+          />
+        </svg>
+      </div>
       
-      {/* Container utama untuk efek Magnetic/Snap */}
-      <div className="relative z-10 h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth" style={{ scrollPaddingTop: '0', scrollBehavior: 'smooth' }}>
+      {/* Perubahan:
+        1. Menghapus 'h-screen overflow-y-auto' agar scroller utama menggunakan body halaman.
+        2. Menghapus kelas snap scroll (snap-y, snap-mandatory) karena scroller body biasanya tidak menggunakannya.
+        3. Mempertahankan 'scroll-smooth' untuk navigasi halus.
+      */}
+      <div className="relative z-10 scroll-smooth">
         
         {/* Breadcrumb dan Header Section */}
-        <div className="snap-start min-h-screen relative z-10 bg-[#1a1a1a]">
+        {/* Perubahan: Menghapus 'snap-start min-h-screen' dan 'bg-[#1a1a1a]' agar transparan dan bg circle terlihat */}
+        <div className="relative z-10 bg-transparent">
           <div className="px-6 md:px-12 lg:px-20 py-6 pt-24 md:pt-28">
             <Breadcrumb>
               <BreadcrumbList>
@@ -208,20 +229,21 @@ export default function ProductsPage() {
             </Breadcrumb>
           </div>
 
-          <section className="min-h-screen px-6 md:px-12 lg:px-20 py-16">
+          <section className="px-6 md:px-12 lg:px-20 py-16">
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col lg:flex-row gap-8 mb-12">
                 <div className="lg:w-1/3">
-                  <h1 className="font-light text-5xl md:text-6xl text-orange-500 font-serif mb-6">Product</h1>
+                  <h1 className="font-light text-5xl md:text-6xl text-orange-500 font-serif mb-6 relative z-10">Product</h1>
                 </div>
 
                 <div className="lg:w-2/3 flex flex-col justify-start">
-                  <p className="text-gray-300 text-sm leading-relaxed">
-The Polflex Office collection presents a range of executive and management seating designed for contemporary workplaces.Each chair reflects a design language defined by refined proportions, quality materials, and meticulous craftsmanship. The collection includes seating solutions for executive offices, meeting spaces, and professional environments,Polflex Office products bring presence, comfort, and sophistication to modern workspaces.                  </p>
+                  <p className="text-gray-300 text-sm leading-relaxed relative z-10">
+                    The Polflex Office collection presents a range of executive and management seating designed for contemporary workplaces.Each chair reflects a design language defined by refined proportions, quality materials, and meticulous craftsmanship. The collection includes seating solutions for executive offices, meeting spaces, and professional environments,Polflex Office products bring presence, comfort, and sophistication to modern workspaces.
+                  </p>
                 </div>
               </div>
 
-              <div className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative z-20">
                 <Input
                   type="text"
                   placeholder="Search"
@@ -236,16 +258,17 @@ The Polflex Office collection presents a range of executive and management seati
                 <div className="flex flex-wrap gap-4 md:gap-6">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="flex items-center gap-2 text-gray-300 hover:text-white">
+                      <button className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
                         <span className="text-sm">Color : {selectedColor}</span>
                         <ChevronDown size={16} />
                       </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="max-h-64 overflow-y-auto">
-                      <DropdownMenuItem onClick={() => setSelectedColor("All")}>All</DropdownMenuItem>
+                    <DropdownMenuContent className="max-h-64 overflow-y-auto bg-gray-900 text-white border-gray-700">
+                      <DropdownMenuItem className="hover:bg-gray-800 cursor-pointer" onClick={() => setSelectedColor("All")}>All</DropdownMenuItem>
                       {COLOR_OPTIONS.map((color) => (
                         <DropdownMenuItem
                           key={color}
+                          className="hover:bg-gray-800 cursor-pointer"
                           onClick={() => setSelectedColor(color)}
                         >
                           {color}
@@ -256,19 +279,20 @@ The Polflex Office collection presents a range of executive and management seati
 
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="flex items-center gap-2 text-gray-300 hover:text-white">
+                      <button className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
                         <span className="text-sm">Category : {selectedCategory}</span>
                         <ChevronDown size={16} />
                       </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem onClick={() => setSelectedCategory("All")}>All</DropdownMenuItem>
+                    <DropdownMenuContent className="bg-gray-900 text-white border-gray-700">
+                      <DropdownMenuItem className="hover:bg-gray-800 cursor-pointer" onClick={() => setSelectedCategory("All")}>All</DropdownMenuItem>
                       {categoriesLoading ? (
                         <DropdownMenuItem disabled>Loading...</DropdownMenuItem>
                       ) : categories.length > 0 ? (
                         categories.map((category) => (
                           <DropdownMenuItem
                             key={category.id}
+                            className="hover:bg-gray-800 cursor-pointer"
                             onClick={() => setSelectedCategory(category.name)}
                           >
                             {category.name}
@@ -282,23 +306,23 @@ The Polflex Office collection presents a range of executive and management seati
 
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
+                      <button className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
                         <span className="text-sm">Sort by</span>
                         <ChevronDown size={16} />
                       </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem>Newest</DropdownMenuItem>
-                      <DropdownMenuItem>Price: Low to High</DropdownMenuItem>
-                      <DropdownMenuItem>Price: High to Low</DropdownMenuItem>
-                      <DropdownMenuItem>A - Z</DropdownMenuItem>
+                    <DropdownMenuContent className="bg-gray-900 text-white border-gray-700">
+                      <DropdownMenuItem className="hover:bg-gray-800 cursor-pointer">Newest</DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-gray-800 cursor-pointer">Price: Low to High</DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-gray-800 cursor-pointer">Price: High to Low</DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-gray-800 cursor-pointer">A - Z</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
               </div>
 
               {loading ? (
-                <div className="flex justify-center items-center py-16">
+                <div className="flex justify-center items-center py-16 animate-pulse">
                   <p className="text-gray-500">Loading products...</p>
                 </div>
               ) : error ? (
@@ -313,14 +337,14 @@ The Polflex Office collection presents a range of executive and management seati
                   <p className="text-gray-500">No products found</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12 relative z-20">
                   {paginatedProducts.map((product) => (
                     <Link
                       key={product.id}
                       href={`/products/item/${product.id}`}
-                      className="cursor-pointer group"
+                      className="cursor-pointer group flex flex-col h-full shadow-lg"
                     >
-                      <div className="bg-white rounded-lg overflow-hidden mb-3 transition-transform duration-300 group-hover:scale-105">
+                      <div className="bg-white rounded-lg overflow-hidden mb-4 transition-transform duration-300 group-hover:scale-105">
                         <img
                           src={product.image1 || "/placeholder.svg"}
                           alt={product.name}
@@ -331,9 +355,9 @@ The Polflex Office collection presents a range of executive and management seati
                         />
                       </div>
 
-                      <div className="text-center">
-                        <h3 className="text-gray-900 font-medium text-sm md:text-base">{product.name}</h3>
-                        <p className="text-gray-600 text-xs md:text-sm">
+                      <div className="text-left mt-auto">
+                        <h3 className="text-white font-medium text-sm md:text-base group-hover:text-orange-400 transition-colors">{product.name}</h3>
+                        <p className="text-gray-400 text-xs md:text-sm mt-1">
                           {product.product_type || product.category}
                         </p>
                       </div>
@@ -342,15 +366,16 @@ The Polflex Office collection presents a range of executive and management seati
                 </div>
               )}
 
+              {/* Pagination */}
               {!loading && !error && products.length > 0 && totalPages > 1 && (
-                <div className="flex items-center justify-center gap-2 flex-wrap">
+                <div className="flex items-center justify-center gap-2 flex-wrap pb-12 relative z-20">
                   <button
                     onClick={() => {
                       setCurrentPage(Math.max(1, currentPage - 1))
                       window.scrollTo({ top: 0, behavior: 'smooth' })
                     }}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 text-sm text-gray-300 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {"< Previous"}
                   </button>
@@ -403,10 +428,10 @@ The Polflex Office collection presents a range of executive and management seati
                             setCurrentPage(page as number)
                             window.scrollTo({ top: 0, behavior: 'smooth' })
                           }}
-                          className={`px-3 py-2 text-sm rounded ${
+                          className={`px-3 py-2 text-sm rounded transition-colors ${
                             currentPage === page
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-700 hover:text-gray-900"
+                              ? "bg-white text-black font-medium"
+                              : "text-gray-400 hover:text-white hover:bg-white/10"
                           }`}
                         >
                           {page}
@@ -421,7 +446,7 @@ The Polflex Office collection presents a range of executive and management seati
                       window.scrollTo({ top: 0, behavior: 'smooth' })
                     }}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 text-sm text-gray-700 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 text-sm text-gray-300 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {"Next >"}
                   </button>
@@ -432,7 +457,8 @@ The Polflex Office collection presents a range of executive and management seati
         </div>
 
         {/* Footer */}
-        <div className="snap-start relative z-10">
+        {/* Perubahan: Menghapus 'snap-start' */}
+        <div className="relative z-10">
           <FooterSection />
         </div>
 
