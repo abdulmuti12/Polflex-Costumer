@@ -38,6 +38,7 @@ export function AboutHero() {
           {/* Main Heading */}
           <motion.h1
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-wide text-orange-500 mb-16"
+            style={{ fontFamily: "Futura Book Font, sans-serif" }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -55,7 +56,10 @@ export function AboutHero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true, amount: 0.3 }}
             >
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-300 mb-8">
+              <h3 
+                className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-300 mb-8"
+                style={{ fontFamily: "Futura Book Font, sans-serif" }}
+              >
                 Precision & Comfort
               </h3>
             </motion.div>
@@ -68,11 +72,17 @@ export function AboutHero() {
               viewport={{ once: true, amount: 0.3 }}
               className="flex flex-col justify-center"
             >
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-300 mb-4">
+              <h3 
+                className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-300 mb-4"
+                style={{ fontFamily: "Futura Book Font, sans-serif" }}
+              >
                 Premium Craftsmanship
               </h3>
               
-              <p className="text-xl sm:text-2xl md:text-3xl font-light text-gray-400 relative -left-28">
+              <p 
+                className="text-xl sm:text-2xl md:text-3xl font-light text-gray-400 relative -left-28"
+                style={{ fontFamily: "Futura Book Font, sans-serif" }}
+              >
                 Curated for leaders
               </p>
             </motion.div>
@@ -87,8 +97,12 @@ export function AboutHero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <p className="text-gray-500 text-xs sm:text-sm leading-relaxed text-justify">
-Polflex Office presents a collection of contemporary office seating designed for refined professional environments. The brand focuses on design clarity, material quality, and well-balanced proportions that complement executive workspaces.          </p>
+          <p 
+            className="text-gray-500 text-xs sm:text-sm leading-relaxed text-justify"
+            style={{ fontFamily: "Futura Light BT, sans-serif" }}
+          >
+            Polflex Office presents a collection of contemporary office seating designed for refined professional environments. The brand focuses on design clarity, material quality, and well-balanced proportions that complement executive workspaces.
+          </p>
         </motion.div>
       </div>
     </section>

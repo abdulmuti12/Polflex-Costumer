@@ -59,7 +59,7 @@ export function WhyPolflexOffice() {
         >
           <h2
             className="font-extralight tracking-tight leading-[0.98]"
-            style={{ color: ORANGE }}
+            style={{ color: ORANGE, fontFamily: "Futura Book Font, sans-serif" }}
           >
             <span className="block text-[56px] sm:text-[72px] md:text-[88px] lg:text-[96px]">
               Why
@@ -83,12 +83,15 @@ export function WhyPolflexOffice() {
               >
                 <h3
                   className="font-light tracking-tight text-[24px] sm:text-[28px] leading-tight"
-                  style={{ color: ORANGE }}
+                  style={{ color: ORANGE, fontFamily: "Futura Book Font, sans-serif" }}
                 >
                   {reason.title}
                 </h3>
 
-                <p className="mt-4 sm:mt-5 font-light text-[15px] sm:text-[16px] leading-7 text-[#CFCFCF]">
+                <p 
+                  className="mt-4 sm:mt-5 font-light text-[15px] sm:text-[16px] leading-7 text-[#CFCFCF]"
+                  style={{ fontFamily: "Futura Light BT, sans-serif" }}
+                >
                   {reason.description}
                 </p>
               </motion.div>

@@ -15,7 +15,10 @@ export function WhoWeAre() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-[5rem] lg:text-[6rem] font-light leading-[0.95] text-[#ED592B]">
+          <h2 
+            className="text-[5rem] lg:text-[6rem] font-light leading-[0.95] text-[#ED592B]"
+            style={{ fontFamily: "Futura Book Font, sans-serif" }}
+          >
             Who
           </h2>
         </motion.div>
@@ -36,20 +39,33 @@ export function WhoWeAre() {
             </h2>
 
             <div className="space-y-6 text-[#d4d4d4] text-[15px] md:text-[16px] leading-[1.8] flex-grow">
-              <p className="text-justify font-light">
-Polflex Office is led by Claudia Apriliana, Creative Director, and Ayleen Apriliana, Managing Director.              </p>
-
-              <p className="text-justify font-light">
-As Creative Director, Claudia Apriliana defines the visual identity and design direction of the brand. Her approach emphasizes refined forms, balanced proportions, and a sophisticated aesthetic suited for contemporary office environments.
+              <p 
+                className="text-justify font-light"
+                style={{ fontFamily: "Futura Light BT, sans-serif" }}
+              >
+                Polflex Office is led by Claudia Apriliana, Creative Director, and Ayleen Apriliana, Managing Director.
               </p>
 
-              <p className="text-justify font-light">
-Ayleen Apriliana, Managing Director, leads the strategic and operational development of Polflex Office. She oversees partnerships, project collaborations, and brand growth, ensuring a consistent standard of quality and service.
+              <p 
+                className="text-justify font-light"
+                style={{ fontFamily: "Futura Light BT, sans-serif" }}
+              >
+                As Creative Director, Claudia Apriliana defines the visual identity and design direction of the brand. Her approach emphasizes refined forms, balanced proportions, and a sophisticated aesthetic suited for contemporary office environments.
               </p>
-                            <p className="text-justify font-light">
-                              Together, they guide Polflex Office with a shared commitment to refined office furniture and elevated workspace design.
 
-</p>
+              <p 
+                className="text-justify font-light"
+                style={{ fontFamily: "Futura Light BT, sans-serif" }}
+              >
+                Ayleen Apriliana, Managing Director, leads the strategic and operational development of Polflex Office. She oversees partnerships, project collaborations, and brand growth, ensuring a consistent standard of quality and service.
+              </p>
+              
+              <p 
+                className="text-justify font-light"
+                style={{ fontFamily: "Futura Light BT, sans-serif" }}
+              >
+                Together, they guide Polflex Office with a shared commitment to refined office furniture and elevated workspace design.
+              </p>
             </div>
           </motion.div>
 

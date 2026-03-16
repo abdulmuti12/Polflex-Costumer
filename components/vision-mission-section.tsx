@@ -45,9 +45,10 @@ export function VisionMissionSection() {
               Our Vision
             </h2>
           <p
-  className={`text-gray-400 text-lg leading-relaxed font-normal font-['Aeonik'] text-justify transition-all duration-1000 ease-out delay-200 ${
+  className={`text-gray-400 text-lg leading-relaxed font-normal text-justify transition-all duration-1000 ease-out delay-200 ${
     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
   }`}
+  style={{ fontFamily: "Futura Light BT, sans-serif" }}
 >
              
 To establish Polflex Office Indonesia as the leading provider of Italian luxury office furniture, bringing timeless design, refined craftsmanship, and premium materials to create prestigious workspaces for leaders and modern professionals. Inspired by Polflex’s heritage of Italian craftsmanship since 1938, Polflex Indonesia aims to transform executive environments into spaces that reflect leadership, elegance, and performance.            </p>

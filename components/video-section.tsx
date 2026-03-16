@@ -75,7 +75,10 @@ export function VideoSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <p className="text-white/70 text-[13px] md:text-[15px] lg:text-[16px] font-light leading-[1.9] text-center tracking-[0.02em]">
+          <p 
+            className="text-white/70 text-[13px] md:text-[15px] lg:text-[16px] font-light leading-[1.9] text-center tracking-[0.02em]"
+            style={{ fontFamily: "Futura Light BT, sans-serif" }}
+          >
   The result of experience developed over three generations since 1951. 
   Functionality and Elegance. Quality and Style. Polflex products feature 
   innovative and unique content that combined with simple lines as the ultimate 
