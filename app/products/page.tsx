@@ -94,7 +94,10 @@ export default function ProductsPage() {
     const fetchCategories = async () => {
       try {
         setCategoriesLoading(true)
-        const response = await fetch("http://127.0.0.1:8000/api/part-category")
+        
+        // Menggabungkan environment variable dengan endpoint spesifik
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/part-category`)
+        
         const json: CategoryResponse = await response.json()
 
         if (json.success && json.data && Array.isArray(json.data)) {
@@ -121,7 +124,8 @@ export default function ProductsPage() {
         setLoading(true)
         
         // Build query params
-        let url = `https://casaitalia-living.com/api/customers/product?page=${currentPage}`
+        // let url = `https://casaitalia-living.com/api/customers/product?page=${currentPage}`
+        let url = `${process.env.NEXT_PUBLIC_API_URL}/customers/product?page=${currentPage}`
         
         // Add search parameter if entered
         if (searchTerm) {
