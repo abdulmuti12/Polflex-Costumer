@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { SiteHeader } from "@/components/site-header"
@@ -15,64 +15,123 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
-const projects = [
-  {
-    id: 1,
-    title: "Kano Permai PIK",
-    category: "Residential",
-    image: "/images/project/kano-permai-pik.jpg",
-  },
-  {
-    id: 2,
-    title: "Presidential Suite ST Regis Jakarta",
-    category: "Residential",
-    image: "/images/project/st-regis-jakarta.jpg",
-  },
-  {
-    id: 3,
-    title: "Jasa Raharja",
-    category: "Residential",
-    image: "/images/project/jasa-raharja.jpg",
-  },
-  {
-    id: 4,
-    title: "Sudirman FIFA Office",
-    category: "Office",
-    image: "/images/project/sudirman-fifa.jpg",
-  },
-  {
-    id: 5,
-    title: "Gatot Subroto-DPR RI Office",
-    category: "Office",
-    image: "/images/project/gatot-subroto.jpg",
-  },
-  {
-    id: 6,
-    title: "Diamond Golf IK",
-    category: "Residential",
-    image: "/images/project/diamond-golf-ik.jpg",
-  },
-]
+// Sesuaikan interface dengan response API
+interface ProjectItem {
+  id: number
+  name: string
+  brand: string
+  type: string
+  category: string | null
+  architect: string
+  location: string
+  photo_created: string
+  select: any
+  file: string
+  designer: string
+}
 
-const filterOptions = ["All", "Residential", "Office", "Others"]
+interface ApiResponse {
+  success: boolean
+  message: string
+  data: {
+    data: ProjectItem[]
+    current_page: number
+    last_page: number
+    total: number
+    // Kolom pagination lainnya bisa ditambahkan jika diperlukan
+  }
+  status: number
+}
+
+// Opsi filter statis (Anda bisa membuatnya dinamis nanti jika category dari API bervariasi)
+const filterOptions = ["All", "property", "text", "Others"]
 
 export default function ProjectsClient() {
+  const [projects, setProjects] = useState<ProjectItem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  
   const [selectedFilter, setSelectedFilter] = useState("All")
   const [currentPage, setCurrentPage] = useState(1)
   const [hoveredProjectId, setHoveredProjectId] = useState<number | null>(null)
   const itemsPerPage = 6
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true)
+        // Jika API mendukung parameter pagination, Anda bisa menyesuaikan URL-nya:
+        // `https://casaitalia-living.com/api/customers/project?page=${currentPage}`
+        // Untuk contoh ini, kita ambil semua dari endpoint base.
+        const response = await fetch("https://casaitalia-living.com/api/customers/project")
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch data")
+        }
+
+        const json: ApiResponse = await response.json()
+
+        if (json.success && json.data?.data) {
+          setProjects(json.data.data)
+          setError(null)
+        } else {
+          setError(json.message || "Failed to load projects")
+        }
+      } catch (err) {
+        console.error("API Fetch Error:", err)
+        setError("Failed to connect to server")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, []) // Jika menggunakan pagination dari API, tambahkan [currentPage] ke array dependency ini.
+
+  // Logika filter lokal (Pastikan category dari API sesuai. Jika null, kita anggap 'Others' atau string kosong)
   const filteredProjects =
     selectedFilter === "All"
       ? projects
-      : projects.filter((p) => p.category === selectedFilter)
+      : projects.filter((p) => {
+          const cat = p.category ? p.category.toLowerCase() : "others"
+          return cat === selectedFilter.toLowerCase()
+        })
 
+  // Logika pagination lokal
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const paginatedProjects = filteredProjects.slice(
     startIndex,
     startIndex + itemsPerPage
   )
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-[#1a1a1a] flex items-center justify-center text-white">
+        <SiteHeader />
+        <p className="text-gray-400">Loading projects...</p>
+        <WhatsAppButton />
+      </main>
+    )
+  }
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-[#1a1a1a] flex items-center justify-center text-white">
+        <SiteHeader />
+        <div className="text-center">
+          <p className="text-red-500 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-4 py-2 bg-orange-500 rounded text-white"
+          >
+            Try Again
+          </button>
+        </div>
+        <WhatsAppButton />
+      </main>
+    )
+  }
 
   return (
     <main className="min-h-screen bg-[#1a1a1a] text-white relative">
@@ -176,98 +235,110 @@ export default function ProjectsClient() {
                   </motion.div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                  {paginatedProjects.map((project, index) => (
-                    <motion.div
-                      key={project.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      viewport={{ once: true, amount: 0.2 }}
-                    >
-                      <div
-                        className="cursor-pointer group"
-                        onMouseEnter={() => setHoveredProjectId(project.id)}
-                        onMouseLeave={() => setHoveredProjectId(null)}
+                {paginatedProjects.length === 0 ? (
+                  <div className="text-center py-20 text-gray-500">
+                    No projects found for this category.
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    {paginatedProjects.map((project, index) => (
+                      <motion.div
+                        key={project.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                        viewport={{ once: true, amount: 0.2 }}
                       >
-                        <Link href={`/projects/${project.id}`}>
-                          <motion.div
-                            className="overflow-hidden mb-4 transition-transform duration-300 group-hover:scale-105"
-                            whileHover={{ y: -5 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <img
-                              src={project.image || "/placeholder.svg"}
-                              alt={project.title}
-                              className="w-full aspect-video object-cover"
-                            />
-                          </motion.div>
-
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{
-                              duration: 0.5,
-                              delay: index * 0.1 + 0.2,
-                            }}
-                            viewport={{ once: true, amount: 0.2 }}
-                          >
-                            <h3
-                              className={`font-medium text-base ${
-                                hoveredProjectId === project.id
-                                  ? "text-orange-500"
-                                  : "text-white"
-                              }`}
+                        <div
+                          className="cursor-pointer group"
+                          onMouseEnter={() => setHoveredProjectId(project.id)}
+                          onMouseLeave={() => setHoveredProjectId(null)}
+                        >
+                          <Link href={`/projects/${project.id}`}>
+                            <motion.div
+                              className="overflow-hidden mb-4 transition-transform duration-300 group-hover:scale-105"
+                              whileHover={{ y: -5 }}
+                              transition={{ duration: 0.3 }}
                             >
-                              {project.title}
-                            </h3>
-                            <p className="text-gray-400 text-sm mt-1">
-                              {project.category}
-                            </p>
-                          </motion.div>
-                        </Link>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+                              <img
+                                src={project.file || "/placeholder.svg"} // Menggunakan data 'file' dari API
+                                alt={project.name} // Menggunakan data 'name' dari API
+                                className="w-full aspect-video object-cover"
+                                onError={(e) => {
+                                  e.currentTarget.src = "/placeholder.svg"
+                                }}
+                              />
+                            </motion.div>
 
-                <div className="flex items-center justify-center gap-2">
-                  <button
-                    onClick={() =>
-                      setCurrentPage(Math.max(1, currentPage - 1))
-                    }
-                    disabled={currentPage === 1}
-                    className="px-3 py-2 text-sm text-gray-400 hover:text-white disabled:opacity-30"
-                  >
-                    {"< Previous"}
-                  </button>
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              whileInView={{ opacity: 1 }}
+                              transition={{
+                                duration: 0.5,
+                                delay: index * 0.1 + 0.2,
+                              }}
+                              viewport={{ once: true, amount: 0.2 }}
+                            >
+                              <h3
+                                className={`font-medium text-base ${
+                                  hoveredProjectId === project.id
+                                    ? "text-orange-500"
+                                    : "text-white"
+                                }`}
+                              >
+                                {project.name} {/* Menggunakan data 'name' dari API */}
+                              </h3>
+                              <p className="text-gray-400 text-sm mt-1 capitalize">
+                                {project.category || "Uncategorized"} {/* Menangani category null */}
+                              </p>
+                            </motion.div>
+                          </Link>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
 
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                    (page) => (
-                      <button
-                        key={page}
-                        onClick={() => setCurrentPage(page)}
-                        className={`px-3 py-2 text-sm rounded transition-all ${
-                          currentPage === page
-                            ? "bg-orange-500 text-white"
-                            : "text-gray-400 hover:text-white"
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    )
-                  )}
+                {/* Tampilkan pagination hanya jika ada data */}
+                {totalPages > 0 && (
+                  <div className="flex items-center justify-center gap-2">
+                    <button
+                      onClick={() =>
+                        setCurrentPage(Math.max(1, currentPage - 1))
+                      }
+                      disabled={currentPage === 1}
+                      className="px-3 py-2 text-sm text-gray-400 hover:text-white disabled:opacity-30"
+                    >
+                      {"< Previous"}
+                    </button>
 
-                  <button
-                    onClick={() =>
-                      setCurrentPage(Math.min(totalPages, currentPage + 1))
-                    }
-                    disabled={currentPage === totalPages}
-                    className="px-3 py-2 text-sm text-gray-400 hover:text-white disabled:opacity-30"
-                  >
-                    {"Next >"}
-                  </button>
-                </div>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                      (page) => (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`px-3 py-2 text-sm rounded transition-all ${
+                            currentPage === page
+                              ? "bg-orange-500 text-white"
+                              : "text-gray-400 hover:text-white"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      )
+                    )}
+
+                    <button
+                      onClick={() =>
+                        setCurrentPage(Math.min(totalPages, currentPage + 1))
+                      }
+                      disabled={currentPage === totalPages}
+                      className="px-3 py-2 text-sm text-gray-400 hover:text-white disabled:opacity-30"
+                    >
+                      {"Next >"}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </section>
