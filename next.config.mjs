@@ -11,6 +11,15 @@ const nextConfig = {
     maxInactiveAge: 60 * 1000, // 60 seconds
     pagesBufferLength: 5,
   },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: process.env.NEXT_PUBLIC_API_HOST,
+      },
+    ],
+  },
   // Enable static optimization
   staticPageGenerationTimeout: 120,
 }

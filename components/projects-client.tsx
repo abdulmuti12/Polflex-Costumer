@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image" // <-- Import next/image di sini
 import { motion } from "framer-motion"
 import { SiteHeader } from "@/components/site-header"
 import { FooterSection } from "@/components/footer-section"
@@ -38,12 +39,10 @@ interface ApiResponse {
     current_page: number
     last_page: number
     total: number
-    // Kolom pagination lainnya bisa ditambahkan jika diperlukan
   }
   status: number
 }
 
-// Opsi filter statis (Anda bisa membuatnya dinamis nanti jika category dari API bervariasi)
 const filterOptions = ["All", "property", "text", "Others"]
 
 export default function ProjectsClient() {
@@ -60,11 +59,11 @@ export default function ProjectsClient() {
     const fetchProjects = async () => {
       try {
         setLoading(true)
-        // Jika API mendukung parameter pagination, Anda bisa menyesuaikan URL-nya:
-        // `https://casaitalia-living.com/api/customers/project?page=${currentPage}`
-        // Untuk contoh ini, kita ambil semua dari endpoint base.
-        const response = await fetch("https://casaitalia-living.com/api/customers/project")
+        // const response = await fetch("https://casaitalia-living.com/api/customers/project")
         
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/customers/project`
+        )
         if (!response.ok) {
           throw new Error("Failed to fetch data")
         }
@@ -86,9 +85,8 @@ export default function ProjectsClient() {
     }
 
     fetchProjects()
-  }, []) // Jika menggunakan pagination dari API, tambahkan [currentPage] ke array dependency ini.
+  }, [])
 
-  // Logika filter lokal (Pastikan category dari API sesuai. Jika null, kita anggap 'Others' atau string kosong)
   const filteredProjects =
     selectedFilter === "All"
       ? projects
@@ -97,7 +95,6 @@ export default function ProjectsClient() {
           return cat === selectedFilter.toLowerCase()
         })
 
-  // Logika pagination lokal
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const paginatedProjects = filteredProjects.slice(
@@ -255,18 +252,18 @@ export default function ProjectsClient() {
                           onMouseLeave={() => setHoveredProjectId(null)}
                         >
                           <Link href={`/projects/${project.id}`}>
+                            {/* Tambahkan relative w-full aspect-video di sini untuk next/image */}
                             <motion.div
-                              className="overflow-hidden mb-4 transition-transform duration-300 group-hover:scale-105"
+                              className="relative overflow-hidden mb-4 transition-transform duration-300 group-hover:scale-105 w-full aspect-video"
                               whileHover={{ y: -5 }}
                               transition={{ duration: 0.3 }}
                             >
-                              <img
-                                src={project.file || "/placeholder.svg"} // Menggunakan data 'file' dari API
-                                alt={project.name} // Menggunakan data 'name' dari API
-                                className="w-full aspect-video object-cover"
-                                onError={(e) => {
-                                  e.currentTarget.src = "/placeholder.svg"
-                                }}
+                              <Image
+                                src={project.file || "/placeholder.svg"}
+                                alt={project.name || "Project image"}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                className="object-cover"
                               />
                             </motion.div>
 
@@ -286,10 +283,10 @@ export default function ProjectsClient() {
                                     : "text-white"
                                 }`}
                               >
-                                {project.name} {/* Menggunakan data 'name' dari API */}
+                                {project.name}
                               </h3>
                               <p className="text-gray-400 text-sm mt-1 capitalize">
-                                {project.category || "Uncategorized"} {/* Menangani category null */}
+                                {project.category || "Uncategorized"}
                               </p>
                             </motion.div>
                           </Link>
@@ -299,7 +296,6 @@ export default function ProjectsClient() {
                   </div>
                 )}
 
-                {/* Tampilkan pagination hanya jika ada data */}
                 {totalPages > 0 && (
                   <div className="flex items-center justify-center gap-2">
                     <button
