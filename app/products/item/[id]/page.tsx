@@ -14,6 +14,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+// Tambahkan import icon X (jika menggunakan lucide-react)
+import { X } from "lucide-react" 
 
 interface ProductData {
   id: number
@@ -46,6 +48,8 @@ interface ApiResponse {
   status: number
 }
 
+
+
 export default function ProductDetailPage() {
   const params = useParams()
   const productId = params.id
@@ -54,6 +58,28 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [relatedProducts, setRelatedProducts] = useState<ProductData["recomended_products"]>([])
+  
+  // STATE BARU: Untuk melacak gambar mana yang sedang dibuka di modal
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
+  const handleGetPriceClick = () => {
+    if (!product) return
+
+    // Nomor WA format internasional tanpa tanda + atau spasi
+    const phoneNumber = "6285174189869" 
+    
+    // Mengambil URL halaman saat ini
+    const currentUrl = window.location.href 
+    
+    // Format pesan WhatsApp
+    const message = `Halo, saya ingin menanyakan harga untuk produk *${product.name}*.\n\nLink produk: ${currentUrl}`
+    
+    // Encode pesan agar aman digunakan di URL
+    const encodedMessage = encodeURIComponent(message)
+    
+    // Buka WhatsApp di tab baru
+    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank")
+  }
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -86,7 +112,17 @@ export default function ProductDetailPage() {
     }
   }, [productId])
 
+  // Menutup modal jika tombol Escape ditekan
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedImage(null)
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
   if (loading) {
+    // ... (Loading state tetap sama)
     return (
       <main className="min-h-screen flex items-center justify-center bg-[#2b2a29]">
         <SiteHeader />
@@ -99,6 +135,7 @@ export default function ProductDetailPage() {
   }
 
   if (error || !product) {
+    // ... (Error state tetap sama)
     return (
       <main className="min-h-screen flex items-center justify-center bg-[#2b2a29]">
         <SiteHeader />
@@ -135,6 +172,7 @@ export default function ProductDetailPage() {
       {/* Breadcrumb Navigation */}
       <div className="px-6 lg:px-16 py-4 pt-24 md:pt-32 relative z-10">
         <div className="max-w-7xl mx-auto">
+          {/* ... (Breadcrumb tetap sama) ... */}
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -163,21 +201,30 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
-      {/* Product Detail Top Section - Mengikuti Struktur Kode 1 */}
+      {/* Product Detail Top Section */}
       <section className="px-6 lg:px-16 pb-16 relative z-10">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-5 items-start">
           
-          {/* Left: Product Image */}
+          {/* Left: Product Image (DITAMBAHKAN ONCLICK DAN CURSOR POINTER) */}
           <div className="w-full max-w-lg ml-0 lg:ml-auto">
-            <div className="relative w-full aspect-square overflow-hidden bg-stone-800">
+            <div 
+              className="relative w-full aspect-square overflow-hidden bg-stone-800 cursor-zoom-in group"
+              onClick={() => setSelectedImage(product.image1)}
+            >
               <img
                 src={product.image1 || "/placeholder.svg"}
                 alt={product.name}
-                className="w-full h-full object-cover" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                 onError={(e) => {
                   e.currentTarget.src = "/placeholder.svg"
                 }}
               />
+              {/* Overlay indikator klik (opsional) */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                <span className="text-white/0 group-hover:text-white/80 transition-colors duration-300 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-light tracking-wide border border-white/0 group-hover:border-white/30">
+                  Click to enlarge
+                </span>
+              </div>
             </div>
           </div>
 
@@ -211,8 +258,12 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Buttons */}
+         {/* Buttons */}
             <div className="flex flex-wrap items-center gap-4">
-              <button className="px-8 py-4 lg:py-5 text-sm font-light text-white bg-transparent border border-white/60 hover:border-white hover:bg-white/10 transition-colors duration-300 rounded-none">
+              <button 
+                onClick={handleGetPriceClick}
+                className="px-8 py-4 lg:py-5 text-sm font-light text-white bg-transparent border border-white/60 hover:border-white hover:bg-white/10 transition-colors duration-300 rounded-none"
+              >
                 Get the Price
               </button>
               <button className="px-8 py-4 lg:py-5 text-sm font-light text-white bg-transparent border border-white/60 hover:border-white hover:bg-white/10 transition-colors duration-300 rounded-none">
@@ -224,30 +275,38 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* Middle Gallery Section - Mengikuti Struktur Container Kode 1 */}
+      {/* Middle Gallery Section (DITAMBAHKAN ONCLICK) */}
       <section className="px-6 lg:px-16 mb-20">
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[product.image2, product.image3, product.image4].map((imgUrl, idx) => (
-              <div key={idx} className="group relative w-full aspect-[4/3] overflow-hidden bg-black">
-                <img
-                  src={imgUrl || "/placeholder.svg"}
-                  alt={`${product.name} detail ${idx + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    e.currentTarget.src = "/placeholder.svg"
-                  }}
-                />
-              </div>
-            ))}
+            {[product.image2, product.image3, product.image4].map((imgUrl, idx) => {
+              if (!imgUrl) return null; // Skip jika tidak ada gambar
+              return (
+                <div 
+                  key={idx} 
+                  className="group relative w-full aspect-[4/3] overflow-hidden bg-black cursor-zoom-in"
+                  onClick={() => setSelectedImage(imgUrl)}
+                >
+                  <img
+                    src={imgUrl}
+                    alt={`${product.name} detail ${idx + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                    onError={(e) => {
+                      e.currentTarget.src = "/placeholder.svg"
+                    }}
+                  />
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* You May Also Like Section - Mengikuti Struktur Kode 1 */}
+      {/* You May Also Like Section */}
       {relatedProducts && relatedProducts.length > 0 && (
         <section className="px-6 lg:px-16 py-16">
-          <div className="max-w-7xl mx-auto">
+            {/* ... (Related Products tetap sama) ... */}
+            <div className="max-w-7xl mx-auto">
             <h2 className="font-sans font-light text-5xl sm:text-6xl lg:text-7xl text-[#e85d34] mb-12 leading-tight tracking-wide">
               You also<br />
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;may like
@@ -282,6 +341,38 @@ export default function ProductDetailPage() {
 
       <FooterSection />
       <WhatsAppButton />
+
+      {/* MODAL GAMBAR ELEGANT */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1a1918]/95 backdrop-blur-md transition-all duration-300 animate-in fade-in"
+          onClick={() => setSelectedImage(null)} // Tutup saat backdrop diklik
+        >
+          {/* Tombol Close */}
+          <button 
+            className="absolute top-6 right-6 md:top-10 md:right-10 p-2 text-stone-400 hover:text-white transition-colors duration-300 z-10"
+            onClick={(e) => {
+              e.stopPropagation() // Mencegah trigger onClick dari backdrop
+              setSelectedImage(null)
+            }}
+          >
+            <X strokeWidth={1.5} className="w-8 h-8" />
+            <span className="sr-only">Close</span>
+          </button>
+
+          {/* Kontainer Gambar Utama */}
+          <div 
+            className="relative w-full max-w-6xl h-[85vh] mx-4 md:mx-12 animate-in zoom-in-95 duration-300"
+            onClick={(e) => e.stopPropagation()} // Mencegah klik di gambar menutup modal
+          >
+            <img
+              src={selectedImage}
+              alt="Enlarged product view"
+              className="w-full h-full object-contain drop-shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
     </main>
   )
 }
