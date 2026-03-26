@@ -164,11 +164,14 @@ export function OurProjectSection() {
               Projects
             </h2>
             
-            <p className="text-gray-400 text-sm leading-relaxed max-w-md mx-auto lg:mx-0 mb-10 font-light"               style={{ 
-  fontFamily: "Futura Light BT, sans-serif"
-}}  >
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
-            </p>
+          <p
+  className="text-gray-400 text-sm leading-relaxed max-w-md mx-auto lg:mx-0 mb-10 font-light text-justify"
+  style={{ 
+    fontFamily: "Futura Light BT, sans-serif"
+  }}
+>
+  Polflex Office is featured across a range of professional environments, shaped by clarity in design and a focused approach to modern workspaces. Each project presents a precise integration of executive seating within well-composed interiors, where proportion, material, and spatial balance are carefully considered. From executive offices and boardrooms to meeting spaces, the collection adapts seamlessly across different workplace settings. Clean lines support both function and visual consistency. Working closely with architects, interior designers, and corporate clients. Each project reflects a consistent direction in craftsmanship, material quality, and design.
+</p>
 
             <Link href="/projects" className="inline-flex items-center group text-white hover:text-[#ff6b35] transition-colors">
               <span className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center mr-4 group-hover:border-[#ff6b35] transition-colors">

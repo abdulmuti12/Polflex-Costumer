@@ -34,7 +34,7 @@ export function FooterSection() {
   ]
 
   const footerSlides = [
-    { title: "Homelogy", position: "left" },
+    { title: "Polflex", position: "left" },
     { title: "Address", position: "right" },
   ]
 
