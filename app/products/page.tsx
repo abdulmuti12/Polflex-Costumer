@@ -237,11 +237,15 @@ export default function ProductsPage() {
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col lg:flex-row gap-8 mb-12">
                 <div className="lg:w-1/3">
-                  <h1 className="font-light text-5xl md:text-6xl text-orange-500 font-serif mb-6 relative z-10">Product</h1>
+                  <h1 className="font-light text-5xl md:text-6xl text-orange-500 font-serif mb-6 relative z-10" style={{ fontFamily: "Futura Light BT, sans-serif" }}>
+                   
+                    Product
+                    </h1>
                 </div>
 
                 <div className="lg:w-2/3 flex flex-col justify-start">
-                  <p className="text-gray-300 text-sm leading-relaxed relative z-10">
+                  <p className="text-gray-400 text-sm leading-relaxed relative z-11 " style={{ fontFamily: "Futura Light BT, sans-serif" }}>
+
                     The Polflex Office collection presents a range of executive and management seating designed for contemporary workplaces.Each chair reflects a design language defined by refined proportions, quality materials, and meticulous craftsmanship. The collection includes seating solutions for executive offices, meeting spaces, and professional environments,Polflex Office products bring presence, comfort, and sophistication to modern workspaces.
                   </p>
                 </div>
@@ -263,7 +267,7 @@ export default function ProductsPage() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-                        <span className="text-sm">Color : {selectedColor}</span>
+                        <span className="text-sm" style={{ fontFamily: "Futura Light BT, sans-serif" }}>Color : {selectedColor}</span>
                         <ChevronDown size={16} />
                       </button>
                     </DropdownMenuTrigger>
@@ -272,7 +276,7 @@ export default function ProductsPage() {
                       {COLOR_OPTIONS.map((color) => (
                         <DropdownMenuItem
                           key={color}
-                          className="hover:bg-gray-800 cursor-pointer"
+                          className="hover:bg-gray-800 cursor-pointer " style={{ fontFamily: "Futura Light BT, sans-serif" }}
                           onClick={() => setSelectedColor(color)}
                         >
                           {color}
@@ -284,7 +288,7 @@ export default function ProductsPage() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-                        <span className="text-sm">Category : {selectedCategory}</span>
+                        <span className="text-sm" style={{ fontFamily: "Futura Light BT, sans-serif" }}>Category : {selectedCategory}</span>
                         <ChevronDown size={16} />
                       </button>
                     </DropdownMenuTrigger>
@@ -296,7 +300,7 @@ export default function ProductsPage() {
                         categories.map((category) => (
                           <DropdownMenuItem
                             key={category.id}
-                            className="hover:bg-gray-800 cursor-pointer"
+                            className="hover:bg-gray-800 cursor-pointer" style={{ fontFamily: "Futura Light BT, sans-serif" }}
                             onClick={() => setSelectedCategory(category.name)}
                           >
                             {category.name}
@@ -360,8 +364,8 @@ export default function ProductsPage() {
                       </div>
 
                       <div className="text-left mt-auto">
-                        <h3 className="text-white font-medium text-sm md:text-base group-hover:text-orange-400 transition-colors">{product.name}</h3>
-                        <p className="text-gray-400 text-xs md:text-sm mt-1">
+                        <h3 className="text-white font-medium text-sm md:text-base group-hover:text-orange-400 transition-colors " style={{ fontFamily: "Futura Light BT, sans-serif" }}>{product.name}</h3>
+                        <p className="text-gray-400 text-xs md:text-sm mt-1 font-['Futura_Light_BT']">
                           {product.product_type || product.category}
                         </p>
                       </div>

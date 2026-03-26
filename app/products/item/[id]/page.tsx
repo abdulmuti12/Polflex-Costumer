@@ -230,18 +230,18 @@ export default function ProductDetailPage() {
 
           {/* Right: Product Info */}
           <div className="text-stone-300 pt-4 lg:pt-0">
-            <h1 className="font-sans font-semibold text-4xl lg:text-5xl text-[#e85d34] mb-6 tracking-wide">
+            <h1 className=" text-4xl lg:text-5xl text-[#e85d34] mb-6 tracking-wide">
               {product.name}
             </h1>
 
-            <p className="text-stone-400 leading-relaxed mb-10 text-sm lg:text-base max-w-2xl text-justify">
+            <p className="text-stone-400 leading-relaxed mb-10 text-sm lg:text-base max-w-2xl text-justify" style={{ fontFamily: "Futura Light BT, sans-serif" }}>
               {product.description}
             </p>
 
             {/* Product Details Grid */}
             <div className="grid grid-cols-[100px_1fr] gap-y-4 text-sm mb-10 text-stone-500">
               <span>Brand</span>
-              <span className="text-stone-200">{product.brand}</span>
+              <span className="text-stone-200" style={{ fontFamily: "Futura Light BT, sans-serif" }}>{product.brand}</span>
 
               <span className="flex items-center">Color</span>
               <div className="flex items-center gap-3">
@@ -250,11 +250,11 @@ export default function ProductDetailPage() {
                   <span className="w-5 h-5 rounded-full bg-[#2a2a29] border border-stone-500"></span>
                   <span className="w-5 h-5 rounded-full bg-white border border-stone-600"></span>
                 </div>
-                <span className="text-stone-200">{product.color}</span>
+                <span className="text-stone-200" style={{ fontFamily: "Futura Light BT, sans-serif" }}>{product.color}</span>
               </div>
 
               <span>Dimensions</span>
-              <span className="text-stone-200">{product.size}</span>
+              <span className="text-stone-200" style={{ fontFamily: "Futura Light BT, sans-serif" }}>{product.size}</span>
             </div>
 
             {/* Buttons */}
@@ -307,7 +307,7 @@ export default function ProductDetailPage() {
         <section className="px-6 lg:px-16 py-16">
             {/* ... (Related Products tetap sama) ... */}
             <div className="max-w-7xl mx-auto">
-            <h2 className="font-sans font-light text-5xl sm:text-6xl lg:text-7xl text-[#e85d34] mb-12 leading-tight tracking-wide">
+            <h2 className="font-light text-5xl sm:text-6xl lg:text-7xl text-[#e85d34] mb-12 leading-tight tracking-wide" style={{ fontFamily: "Futura Light BT, sans-serif" }}>
               You also<br />
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;may like
             </h2>

@@ -102,7 +102,7 @@ export default function ContactPage() {
               </motion.div>
 
               {/* Main Content Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[600px]">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[600px]" style={{ fontFamily: "Futura Light BT, sans-serif" }}>
                 {/* Left Side - Text Section */}
                 <motion.div
                   className="flex flex-col justify-center"
@@ -111,7 +111,7 @@ export default function ContactPage() {
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true, amount: 0.3 }}
                 >
-                  <div className="mb-8">
+                  <div className="mb-8" style={{ fontFamily: "Futura Light BT, sans-serif" }}>
                     <motion.div
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}

@@ -58,7 +58,7 @@ export function AboutHero() {
             >
               <h3 
                 className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-300 mb-8"
-                style={{ fontFamily: "Futura Book Font, sans-serif" }}
+                style={{ fontFamily: "Futura Light BT, sans-serif" }}
               >
                 Precision & Comfort
               </h3>
