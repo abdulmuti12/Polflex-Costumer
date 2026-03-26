@@ -56,7 +56,9 @@ export function CatalogSection() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >
-            <p className="text-[#8fa0ad] text-xl md:text-2xl font-light tracking-wide">
+            <p className="text-[#8fa0ad] text-xl md:text-2xl font-light tracking-wide"               style={{ 
+  fontFamily: "Futura Light BT, sans-serif"
+}}  >
               Our Catalogue
             </p>
             </div>
@@ -66,6 +68,9 @@ export function CatalogSection() {
   className={`font-light text-[26px] md:text-[34px] lg:text-[40px] leading-[1.18] tracking-[0.01em] text-[#e6e1d6] mb-10 transition-all duration-1000 ease-out delay-100 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
+              style={{ 
+  fontFamily: "Futura Light BT, sans-serif"
+}}  
             >
               Explore the Polflex Catalogue
               <br />
@@ -79,7 +84,10 @@ export function CatalogSection() {
                 className={`text-white/70 text-sm md:text-[16px] leading-relaxed font-light transition-all duration-1000 ease-out delay-300 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 }`}
-                style={{ wordSpacing: "0.15em" }}
+style={{ 
+  wordSpacing: "0.15em",
+  fontFamily: "Futura Light BT, sans-serif"
+}}                
               >
                 A curated selection of Polflex Office furniture designed to support comfort,
                 productivity, and professional presence across workspaces.
@@ -101,7 +109,9 @@ export function CatalogSection() {
                       className="h-3.5 w-3.5 text-white group-hover:translate-x-0.5 transition-transform duration-300"
                     />
                   </span>
-                  <span>DOWNLOAD NOW</span>
+                  <span               style={{ 
+  fontFamily: "Futura Light BT, sans-serif"
+}}  >DOWNLOAD NOW</span>
                 </Link>
               </div>
 

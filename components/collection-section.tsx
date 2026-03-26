@@ -125,7 +125,9 @@ export function CollectionSection() {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex justify-center items-end">
                 {/* PERUBAHAN DI SINI: Teks putih secara default, oranye saat di-hover */}
-                <h3 className="text-xl md:text-2xl font-light tracking-wide transition-colors duration-300 z-10 text-white group-hover/item:text-[#E85C33]">
+                <h3 className="text-xl md:text-2xl font-light tracking-wide transition-colors duration-300 z-10 text-white group-hover/item:text-[#E85C33]"               style={{ 
+  fontFamily: "Futura Light BT, sans-serif"
+}}  >
                   {collection.title}
                 </h3>
               </div>

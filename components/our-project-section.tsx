@@ -153,14 +153,20 @@ export function OurProjectSection() {
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
             )}
           >
-            <h2 className="text-5xl md:text-7xl font-thin text-[#ff6b35] leading-tight mb-2">
+            <h2 className="text-5xl md:text-7xl font-thin text-[#ff6b35] leading-tight mb-2"               style={{ 
+  fontFamily: "Futura Light BT, sans-serif"
+}}  >
               Our
             </h2>
-            <h2 className="text-5xl md:text-7xl font-normal text-[#ff6b35] leading-tight mb-8">
+            <h2 className="text-5xl md:text-7xl font-normal text-[#ff6b35] leading-tight mb-8"               style={{ 
+  fontFamily: "Futura Light BT, sans-serif"
+}}  >
               Projects
             </h2>
             
-            <p className="text-gray-400 text-sm leading-relaxed max-w-md mx-auto lg:mx-0 mb-10 font-light">
+            <p className="text-gray-400 text-sm leading-relaxed max-w-md mx-auto lg:mx-0 mb-10 font-light"               style={{ 
+  fontFamily: "Futura Light BT, sans-serif"
+}}  >
               Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
             </p>
 
