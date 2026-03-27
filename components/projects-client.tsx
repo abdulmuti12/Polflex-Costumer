@@ -43,7 +43,7 @@ interface ApiResponse {
   status: number
 }
 
-const filterOptions = ["All", "property", "text", "Others"]
+const filterOptions = ["All", "Property", "Others"]
 
 export default function ProjectsClient() {
   const [projects, setProjects] = useState<ProjectItem[]>([])
