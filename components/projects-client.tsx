@@ -185,22 +185,21 @@ export default function ProjectsClient() {
                   environments.
                 </motion.h1>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-12">
                   <motion.p
-                    className="text-gray-250 text-base leading-relaxed max-w-md"
+                    className="text-gray-250 text-base leading-7 tracking-[0.01em] max-w-3xl text-justify [text-align-last:left] lg:pr-8"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.2 }}
                     viewport={{ once: true, amount: 0.3 }}
                   >
-                    From executive offices to collaborative areas, Polflex delivers workspace
-                    solutions that balance design clarity, ergonomics, and durability. Every
-                    project reflects our commitment to creating offices that work efficiently
-                    while maintaining a composed and professional atmosphere.
+                    <span className="block">From executive offices to collaborative areas, Polflex delivers workspace</span>
+                    <span className="block">solutions that balance design clarity, ergonomics, and durability. Every</span>
+                    <span className="block">project reflects our commitment to creating offices .</span>
                   </motion.p>
 
                   <motion.div
-                    className="flex justify-end"
+                    className="flex justify-start lg:justify-end self-start"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7 }}
