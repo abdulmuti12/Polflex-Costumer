@@ -40,6 +40,7 @@ interface ApiResponse {
 }
 
 export default function ProjectDetailPage() {
+  const MAX_VISIBLE_THUMBNAILS = 3
   const params = useParams()
   const router = useRouter()
   // Tangkap ID dari URL (Next.js App Router params)
@@ -133,6 +134,19 @@ export default function ProjectDetailPage() {
   }
 
   const currentImage = galleryImages[currentImageIndex]
+  const thumbnailStartIndex =
+    galleryImages.length > MAX_VISIBLE_THUMBNAILS
+      ? Math.min(
+          Math.max(currentImageIndex - (MAX_VISIBLE_THUMBNAILS - 1), 0),
+          galleryImages.length - MAX_VISIBLE_THUMBNAILS
+        )
+      : 0
+  const visibleThumbnails = galleryImages
+    .slice(thumbnailStartIndex, thumbnailStartIndex + MAX_VISIBLE_THUMBNAILS)
+    .map((image, offset) => ({
+      image,
+      index: thumbnailStartIndex + offset,
+    }))
 
   return (
     <main className="min-h-screen bg-[#1a1a1a] text-white relative">
@@ -246,8 +260,8 @@ export default function ProjectDetailPage() {
 
               {/* Gallery Thumbnails (Show only if multiple images) */}
               {galleryImages.length > 1 && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                  {galleryImages.map((image, index) => (
+                <div className="grid grid-cols-3 gap-4 mt-8">
+                  {visibleThumbnails.map(({ image, index }) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
